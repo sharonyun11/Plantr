@@ -7,7 +7,8 @@ const Gardener = db.define('gardener', {
   },
   age: {
     type: Sequelize.INTEGER
-  }
+  },
+  // allowNull: false
 })
 
 const Plot = db.define('plot', {
@@ -19,7 +20,7 @@ const Plot = db.define('plot', {
   }
 })
 
-const Vegetable = db.define('vegeatable', {
+const Vegetable = db.define('vegetable', {
   name: {
     type: Sequelize.STRING
   },
@@ -33,12 +34,12 @@ const Vegetable = db.define('vegeatable', {
 
 
 Plot.belongsTo(Gardener);
-Gardener.hasOne(Plot)
+Gardener.hasOne(Plot);
 
 Vegetable.belongsToMany(Plot, {through: 'veggiesAndPlots'});
 Plot.belongsToMany(Vegetable, {through: 'veggiesAndPlots'});
 
-Gardener.belongsTo(Vegetable, {as: 'favorite_vegetable'})
+Gardener.belongsTo(Vegetable, {as: 'favorite_vegetable'});
 
 
 module.exports = { db, Gardener, Plot, Vegetable }
